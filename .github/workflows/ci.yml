@@ -28,7 +28,7 @@ jobs:
         python modelling.py
 
     - name: Upload Model Artifact (Target Skilled)
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: model-loan-approval
         path: MLProject/model.pkl
