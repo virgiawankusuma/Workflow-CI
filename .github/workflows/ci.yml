@@ -1,0 +1,34 @@
+name: Model Training CI
+
+on:
+  push:
+    branches: [ "main", "master" ]
+
+jobs:
+  train-and-upload:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12.7'
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install mlflow==2.19.0 pandas scikit-learn joblib
+
+    - name: Run MLflow Project
+      run: |
+        cd MLProject
+        mlflow run . --env-manager=local
+
+    - name: Upload Model Artifact (Target Skilled)
+      uses: actions/upload-artifact@v3
+      with:
+        name: model-loan-approval
+        path: MLProject/model.pkl
