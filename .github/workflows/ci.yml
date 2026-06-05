@@ -23,7 +23,7 @@ jobs:
         pip install mlflow==2.19.0 pandas scikit-learn joblib
 
     - name: Run Model Training
-      run: mlflow run MLProject
+      run: mlflow run MLProject --env-manager=local
 
     - name: Upload Model Artifact (Target Skilled)
       uses: actions/upload-artifact@v4
